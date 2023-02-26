@@ -1,18 +1,20 @@
+// mostly from OSTEP
 #include <semaphore.h>
+#include "rwlock.h"
 
-typedef struct _rwlock_unfair_t {
-    sem_t lock;
-    sem_t write_lock;
-    int readers;
-} rwlock_unfair_t;
-
-void rwlock_unfair_init(rwlock_unfair_t *rw) {
+void rwlock_init(rwlock_t *rw) {
     rw->readers = 0;
     sem_init(&rw->lock, 0, 1);
     sem_init(&rw->write_lock, 0, 1);
+#ifdef FAIR
+    rw->write_pending = 1;
+#endif
 }
 
-void rwlock_unfair_acquire_readlock(rwlock_unfair_t *rw) {
+void rwlock_acquire_readlock(rwlock_t *rw) {
+#ifdef FAIR
+    while (rw->write_pending) {}
+#endif
     sem_wait(&rw->lock);
 
     rw->readers++;
@@ -22,7 +24,7 @@ void rwlock_unfair_acquire_readlock(rwlock_unfair_t *rw) {
     sem_post(&rw->lock);
 }
 
-void rwlock_unfair_release_readlock(rwlock_unfair_t *rw) {
+void rwlock_release_readlock(rwlock_t *rw) {
     sem_wait(&rw->lock);
 
     rw->readers--;
@@ -32,10 +34,16 @@ void rwlock_unfair_release_readlock(rwlock_unfair_t *rw) {
     sem_post(&rw->lock);
 }
 
-void rwlock_unfair_acquire_writelock(rwlock_unfair_t *rw) {
+void rwlock_acquire_writelock(rwlock_t *rw) {
+#ifdef FAIR
+    rw->write_pending = 1;
+#endif
     sem_wait(&rw->write_lock);
+#ifdef FAIR
+    rw->write_pending = 0;
+#endif
 }
 
-void rwlock_unfair_release_writelock(rwlock_unfair_t *rw) {
+void rwlock_release_writelock(rwlock_t *rw) {
     sem_post(&rw->write_lock);
 }
