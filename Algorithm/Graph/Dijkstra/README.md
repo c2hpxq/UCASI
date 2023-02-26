@@ -20,6 +20,6 @@
 
 #### std::greater<>
 - greater模板的一个特化，允许参与比较的参数具有不同类型。返回值类型为2种类型`operator>`的返回类型。
-- 示例代码见：
+- [示例代码](https://github.com/c2hpxq/UCASI/blob/main/Algorithm/Graph/Dijkstra/show_case_greater_specialization.cpp)
 ## 试验区
 [leetcode 743.网络延迟时间](https://leetcode.cn/problems/network-delay-time/)
