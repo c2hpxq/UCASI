@@ -1,3 +1,15 @@
+// header lines for local testing/inspecting.
+// no need to include in leetcode-submit version.
+#include <vector>
+#include <utility>
+#include <queue>
+#include <functional>
+#include <algorithm>
+
+using namespace std;
+
+// leetcode 743
+// https://leetcode.cn/problems/network-delay-time/
 class Solution {
 public:
     int networkDelayTime(vector<vector<int>>& times, int n, int k) {
