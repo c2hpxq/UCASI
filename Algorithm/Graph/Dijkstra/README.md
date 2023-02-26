@@ -3,7 +3,7 @@
 ## 普通版本
 [代码](https://github.com/c2hpxq/UCASI/blob/main/Algorithm/Graph/Dijkstra/dijkstra.cpp)
 
-###复杂度分析
+### 复杂度分析
  $O(V^2)$
 - 算法最多运行 $V-1$ 轮，每轮选出未被访问过的节点 $O(V)$ ： $O(V^2)$
 - 每条边最多松弛一次，而 $E = O(V^2)$ 。
