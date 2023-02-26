@@ -14,11 +14,35 @@
 
 ### C++ features
 #### std::greater
+```c++
+template<typename _Tp>
+struct greater : public binary_function<_Tp, _Tp, bool>
+{
+    _GLIBCXX14_CONSTEXPR
+    bool
+    operator()(const _Tp& __x, const _Tp& __y) const
+    { return __x > __y; }
+};
+```
 - 模板类。需要传入的类型支持`>`。
 - 由于重载了`operator()`，该类的实例可以像函数那样调用。故称**function objects**。
 - [ref](https://cplusplus.com/reference/functional/greater/)
 
 #### std::greater<>
+```c++
+template<>
+struct greater<void>
+{
+    template <typename _Tp, typename _Up>
+constexpr auto
+operator()(_Tp&& __t, _Up&& __u) const
+noexcept(noexcept(std::forward<_Tp>(__t) > std::forward<_Up>(__u)))
+-> decltype(std::forward<_Tp>(__t) > std::forward<_Up>(__u))
+{
+    return _S_cmp(std::forward<_Tp>(__t), std::forward<_Up>(__u),
+        __ptr_cmp<_Tp, _Up>{});
+}
+```
 - greater模板的一个特化，允许参与比较的参数具有不同类型。返回值类型为2种类型`operator>`的返回类型。
 - [示例代码](https://github.com/c2hpxq/UCASI/blob/main/Algorithm/Graph/Dijkstra/show_case_greater_specialization.cpp)
 ## 试验区
