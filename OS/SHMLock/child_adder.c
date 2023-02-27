@@ -1,8 +1,4 @@
 
-/* pshm_ucase_send.c
-
-    Licensed under GNU General Public License v2 or later.
-*/
 #include <string.h>
 #include "counter.h"
 
