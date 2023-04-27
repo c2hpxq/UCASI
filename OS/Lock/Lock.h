@@ -9,6 +9,7 @@ public:
 
 class ScopedLock {
 public:
+    ScopedLock(const ScopedLock &) = delete;
     ScopedLock(Lock &lock): lock_(lock) {
         lock_.lock();
     }

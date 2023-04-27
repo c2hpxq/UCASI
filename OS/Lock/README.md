@@ -61,3 +61,7 @@ builtin function由编译器在编译期间处理，编译器决定如何为其�
 大意是若该指令的一个操作数为内存地址，则会“锁定总线”使其独占内存访问权（这个理解需要修正细化）。
 
 ### C++ features
+
+# 遗留问题
+- [memory order](https://www.zhihu.com/question/24301047)
+- 原子指令在硬件层面的原理
