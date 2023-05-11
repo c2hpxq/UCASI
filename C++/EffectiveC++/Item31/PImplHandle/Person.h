@@ -4,6 +4,8 @@
 #include <memory>
 #include <string>
 
+// 仅接口声明使用，不需要这些类的定义
+// 在使用接口的client代码自会包含这些类的定义
 class PersonImpl;
 class Date;
 class Address;
